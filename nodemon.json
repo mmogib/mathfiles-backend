@@ -1,0 +1,10 @@
+{
+  "restartable": "rs",
+  "ignore": [".git", "node_modules/**/node_modules", "*.json"],
+  "env": {
+    "MATHFILES_HOST": "10.180.17.207",
+    "MATHFILES_DB": "AISYS",
+    "MATHFILES_USER": "AISYS_TEST",
+    "MATHFILES_PW": "K2thswX979UyH"
+  }
+}

@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('./Base')
 const Rank = require('./Rank')
-const Ressami = require('./Ressami')
+const CourseFile = require('./CourseFile')
 const Personal = sequelize.define(
   'Personal',
   {
@@ -32,8 +32,18 @@ const Personal = sequelize.define(
 )
 
 Personal.belongsTo(Rank, {
-  foreignKey: 'Per_RankCode',
-  targetKey: 'RAN_CODE'
+  foreignKey: 'Per_Rank',
+  targetKey: 'RAN_RANK'
+})
+
+Rank.belongsTo(Personal, {
+  foreignKey: 'RAN_RANK',
+  targetKey: 'Per_Rank'
+})
+
+Personal.belongsTo(CourseFile, {
+  foreignKey: 'Per_ATID',
+  targetKey: 'CFF_Atid'
 })
 
 module.exports = Personal

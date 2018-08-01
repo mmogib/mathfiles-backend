@@ -9,7 +9,8 @@ const Rank = sequelize.define(
       primaryKey: true
     },
     RAN_CODE: Sequelize.STRING,
-    RAN_FULL: Sequelize.STRING
+    RAN_FULL: Sequelize.STRING,
+    RAN_RANK: Sequelize.STRING
   },
   {
     tableName: 'Ranks',

@@ -1,4 +1,5 @@
 const fs = require('fs')
+const logger = require('./logger')
 
 module.exports = {
   getCourseLinks(term, course, section, docsString) {
@@ -70,31 +71,25 @@ module.exports = {
     const file = `${base}.json`
     const productionFolder = `${process.env.JSON_FILES_PRODUCTION}/${folder}`
     const devFolder = `${process.env.JSON_FILES_DEV}/${folder}`
-    const roductionExist = await _createFolder(productionFolder)
-    const devExist = await _createFolder(devFolder)
-    let continueProc1 = true,
-      continueProc2 = true
-    if (!roductionExist) {
-      console.log(`${productionFolder} was not created ..`)
-      continueProc1 = false
-      //return
+    if (process.env.NODE_ENV !== 'production') {
+      const devExist = await _createFolder(devFolder)
+      if (devExist) {
+        fs.writeFile(`${devFolder}/${file}`, data, err => {
+          if (err) logger.log('error', err)
+          logger.log('info', `${devFolder}/${file} saved...`)
+        })
+      } else {
+        logger.log('error', `${devFolder} was not created ..`)
+      }
     }
-
-    if (!devExist) {
-      console.log(`${devFolder} was not created ..`)
-      continueProc2 = false
-    }
-    if (continueProc1) {
+    const productionExist = await _createFolder(productionFolder)
+    if (productionExist) {
       fs.writeFile(`${productionFolder}/${file}`, data, err => {
-        if (err) throw err
-        console.log(`${productionFolder}/${file} saved...`)
+        if (err) logger.log('error', err)
+        logger.log('info', `${productionFolder}/${file} saved...`)
       })
-    }
-    if (continueProc2) {
-      fs.writeFile(`${devFolder}/${file}`, data, err => {
-        if (err) throw err
-        console.log(`${devFolder}/${file} saved...`)
-      })
+    } else {
+      logger.log('error', `${productionFolder} was not created ..`)
     }
   },
   createFolder(path) {

@@ -12,6 +12,7 @@ const {
   saveFiles,
   getCourseLinks
 } = require('./general.js')
+const logger = require('./logger')
 const term = getCurrentSemester()
 module.exports = {
   getActiveFaculty(limit = null) {
@@ -63,7 +64,7 @@ module.exports = {
 
         saveFiles('course_files', 'faculty', JSON.stringify(courseFileList))
       })
-      .catch(error => console.log(error))
+      .catch(error => logger.log('error', error))
   },
   async saveFacultyPics() {
     _getActiveFaculty()
@@ -71,7 +72,6 @@ module.exports = {
       .then(all => {
         all.forEach(faculty => {
           const { Per_ATID: username } = faculty
-          console.log(username)
           const url = `${
             process.env.FACULTY_IMAGES_DOWNLOAD_URL
           }/${username}.jpg`
@@ -87,11 +87,17 @@ module.exports = {
             responseType: 'stream'
           }).then(response => {
             response.data.pipe(fs.createWriteStream(image_production))
-            response.data.pipe(fs.createWriteStream(image_dev))
+            if (process.NODE_ENV !== 'production') {
+              response.data.pipe(fs.createWriteStream(image_dev))
+            }
 
             // return a promise and resolve when download finishes
-            response.data.on('end', () => console.log(`save ${username}`))
-            response.data.on('error', () => console.log(`error in ${username}`))
+            response.data.on('end', () =>
+              logger.log('info', `${username} saved`)
+            )
+            response.data.on('error', () =>
+              logger.log('error', `${username} not saved`)
+            )
           })
         })
       })
@@ -170,7 +176,7 @@ module.exports = {
 
             saveFiles('faculty', 'faculty', JSON.stringify(list))
           })
-          .catch(error => console.log('error', error))
+          .catch(error => logger.log('error', error))
         /* 
       }) */
       })

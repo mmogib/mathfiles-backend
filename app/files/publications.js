@@ -1,4 +1,5 @@
 const fs = require('fs')
+const logger = require('./logger')
 const sequelize = require('../models/Base')
 const Publication = require('../models/Publication')
 const Author = require('../models/Author')
@@ -18,13 +19,17 @@ module.exports = {
     saveFiles('other_authors', 'publications', JSON.stringify(authors))
   },
   async savePublications() {
-    const years = await _getPublicationsArray().catch(err => console.log(err))
+    const years = await _getPublicationsArray().catch(err =>
+      logger.log('error', err)
+    )
     years.forEach(year => {
       _savePublications(year)
     })
   },
   async savePublicationsYears() {
-    const years = await _getPublicationsYears().catch(err => console.log(err))
+    const years = await _getPublicationsYears().catch(err =>
+      logger.log('error', err)
+    )
     let yearsArr = []
     years.forEach(yearObj => {
       const { PUB_Year: year } = yearObj
@@ -36,7 +41,9 @@ module.exports = {
     return _getFacultyPublications(username)
   },
   async saveFacultyPublications() {
-    const facultyArr = await getActiveFaculty().catch(err => console.log(err))
+    const facultyArr = await getActiveFaculty().catch(err =>
+      logger.log('error', err)
+    )
     facultyArr.forEach(async faculty => {
       const { Per_ATID: username } = faculty
       const pubs = await _getFacultyPublications(username).catch(error =>
@@ -152,7 +159,9 @@ const _getPublicationsYears = () => {
   )
 }
 const _getPublicationsArray = async () => {
-  const years = await _getPublicationsYears().catch(err => console.log(err))
+  const years = await _getPublicationsYears().catch(err =>
+    logger.log('error', err)
+  )
   let array = []
   years.forEach(year => {
     const { PUB_Year } = year
@@ -172,7 +181,9 @@ const _getPublications = (year = null) => {
 }
 
 const _savePublications = async (year = null) => {
-  const articles = await _getPublications(year).catch(err => console.log(err))
+  const articles = await _getPublications(year).catch(err =>
+    logger.log('error', err)
+  )
   let array = []
   let promises = []
   articles.forEach(async article => {
@@ -183,16 +194,15 @@ const _savePublications = async (year = null) => {
   Promise.all(promises)
     .then(tempArray => {
       tempArray.forEach(art => array.push(art))
-      //console.log(array)
       saveFiles(year, 'publications', JSON.stringify(array))
     })
-    .catch(err => console.log(err))
+    .catch(err => logger.log('error', err))
 }
 
 const _getArticleWithAuthors = async (year, title, code) => {
   return new Promise(async (resolve, reject) => {
     const others = await _getOtherAuthorsOfArticle(code).catch(err => {
-      console.log(err)
+      logger.log('error', err)
       reject('something went wrong ...')
     })
     const temp = {

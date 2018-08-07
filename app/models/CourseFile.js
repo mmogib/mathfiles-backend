@@ -1,19 +1,20 @@
 const Sequelize = require('sequelize')
 const sequelize = require('./Base')
 const CourseFile = sequelize.define(
-  'CourseFiles',
+  'CourseFile',
   {
-    CFF_SNO: {
+    OFF_SNO: {
       type: Sequelize.INTEGER,
       primaryKey: true
     },
-    CFF_Atid: Sequelize.STRING,
-    CFF_Course: Sequelize.STRING,
-    CFF_Semes: Sequelize.STRING,
-    CFF_Files: Sequelize.STRING
+    OFF_SEMESTER: Sequelize.STRING,
+    OFF_COURSE: Sequelize.STRING,
+    OFF_EXAM: Sequelize.STRING,
+    OFF_TYPE: Sequelize.STRING,
+    OFF_SECTION: Sequelize.STRING
   },
   {
-    tableName: 'CFFiles',
+    tableName: 'CFF_CourseOffered',
     updatedAt: false,
     createdAt: false
   }

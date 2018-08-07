@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('./Base')
 const Rank = require('./Rank')
-const CourseFile = require('./CourseFile')
+const FacultyCourseFile = require('./FacultyCourseFile')
 const Personal = sequelize.define(
   'Personal',
   {
@@ -41,7 +41,7 @@ Rank.belongsTo(Personal, {
   targetKey: 'Per_Rank'
 })
 
-Personal.belongsTo(CourseFile, {
+Personal.belongsTo(FacultyCourseFile, {
   foreignKey: 'Per_ATID',
   targetKey: 'CFF_Atid'
 })

@@ -139,29 +139,8 @@ const _getFacultyPublications = async username => {
 }
 
 const _saveFacultyPublications = async (username, list) => {
-  const file = `${username}.json`
-  const folder = 'facultypublications'
-  const facPubListProductionFolder = `${
-    process.env.JSON_FILES_PRODUCTION
-  }/${folder}`
-  const facPubListDevFolder = `${process.env.JSON_FILES_DEV}/${folder}`
-
-  const folderProductionExist = await createFolder(facPubListProductionFolder)
-  const folderDevExist = await createFolder(facPubListDevFolder)
-  if (!folderDevExist || !folderProductionExist) {
-    console.log(`${file} was not saved ..`)
-    return
-  }
-
   const data = JSON.stringify(list)
-  fs.writeFile(`${facPubListProductionFolder}/${file}`, data, err => {
-    if (err) throw err
-    console.log(`${facPubListProductionFolder}/${file} saved...`)
-  })
-  fs.writeFile(`${facPubListDevFolder}/${file}`, data, err => {
-    if (err) throw err
-    console.log(`${facPubListDevFolder}/${file} saved...`)
-  })
+  saveFiles(username, 'faculty/publications', data)
 }
 
 const _getPublicationsYears = () => {

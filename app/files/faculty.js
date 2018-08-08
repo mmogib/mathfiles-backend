@@ -193,7 +193,7 @@ const _getActiveFaculty = (limit = null) => {
       {
         model: Schedule,
         where: {
-          SCH_SEMES: '092'
+          SCH_SEMES: term
         },
         required: false
       },

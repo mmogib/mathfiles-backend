@@ -20,7 +20,7 @@ logger.log('info', 'Started running ... ' + new Date().toLocaleString())
 /*
 Time to execute 
 */
-const h = 11,
+const h = 12,
   m = 0,
   s = 0,
   increment_minutes = 1
@@ -34,89 +34,41 @@ cron.schedule(s + ' ' + minutes + ' ' + h + ' * * *', function() {
   const date = new Date().toLocaleString()
   logger.log('info', `start saving active faculty in files at ${date}`)
   saveFaculty()
-})
-// 2)
-//save images of active faculty in images/
-// every day at 12:10:00 AM
-minutes = minutes + increment_minutes
-cron.schedule(s + ' ' + minutes + ' ' + h + ' * * *', function() {
-  const date = new Date().toLocaleString()
+  logger.log('info', `start saving list of faculty ranks at ${date}`)
+  saveAllRanks()
+  logger.log('info', `start saving active faculty course files at ${date}`)
+  saveFacultyCourseFiles()
+  logger.log('info', `start saving active faculty publications at ${date}`)
+  saveFacultyPublications()
+  /*
   logger.log(
     'info',
     `start saving active faculty pictures in images at ${date}`
   )
   saveFacultyPics()
+  */
 })
-// 3)
-// save course files of active faculty in files/faculty/course_files.json
-// every day at 12:15:00 AM
-minutes = minutes + increment_minutes
 
-cron.schedule(s + ' ' + minutes + ' ' + h + ' * * *', function() {
-  const date = new Date().toLocaleString()
-  logger.log('info', `start saving active faculty course files at ${date}`)
-  saveFacultyCourseFiles()
-})
-// 4)
-// save publications of active faculty in files/faculty/publications/username.json
-// every day at 12:20:00 AM
-minutes = minutes + increment_minutes
-
-cron.schedule(s + ' ' + minutes + ' ' + h + ' * * *', function() {
-  const date = new Date().toLocaleString()
-  logger.log('info', `start saving active faculty publications at ${date}`)
-  saveFacultyPublications()
-})
-// 5)
+// 2)
 // save list of years in files/publications/years.json
 // every day at 12:25:00 AM
 minutes = minutes + increment_minutes
-
 cron.schedule(s + ' ' + minutes + ' ' + h + ' * * *', function() {
   const date = new Date().toLocaleString()
   logger.log('info', `start saving list of years at ${date}`)
   savePublicationsYears()
-})
-// 6)
-// save list of years in files/publications/[2001].json
-// every day at 12:30:00 AM
-minutes = minutes + increment_minutes
-
-cron.schedule(s + ' ' + minutes + ' ' + h + ' * * *', function() {
-  const date = new Date().toLocaleString()
   logger.log('info', `start saving publications year by year at ${date}`)
   savePublications()
-})
-// 7)
-// // save list of years in files/publications/other_authors.json
-// every day at 12:35:00 AM
-minutes = minutes + increment_minutes
-cron.schedule(s + ' ' + minutes + ' ' + h + ' * * *', function() {
-  const date = new Date().toLocaleString()
   logger.log('info', `start saving other authors at ${date}`)
   saveAllOtherAuthors()
 })
-// 8)
-// // save list faculty ranks in files/faculty/ranks.json
-// every day at 12:40:00 AM
-minutes = minutes + increment_minutes
 
-cron.schedule(s + ' ' + minutes + ' ' + h + ' * * *', function() {
-  const date = new Date().toLocaleString()
-  logger.log('info', `start saving list of faculty ranks at ${date}`)
-  saveAllRanks()
-})
-// 9)
+// 3)
 // save list of all course files in files/courseFiles/course_files.json
 // every day at 12:45:00 AM
 minutes = minutes + increment_minutes
-
 cron.schedule(s + ' ' + minutes + ' ' + h + ' * * *', function() {
   const date = new Date().toLocaleString()
   logger.log('info', `start saving list of all course files at ${date}`)
-  saveAllRanks()
+  saveAllCourseFiles()
 })
-
-//
-
-//saveAllCourseFiles() //

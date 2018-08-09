@@ -21,6 +21,11 @@ module.exports = {
   saveFacultyCourseFiles() {
     let courseFileList = {}
     Personal.findAll({
+      order: [
+        [FacultyCourseFile, 'CFF_Semes', 'DESC'],
+        [FacultyCourseFile, 'CFF_Course'],
+        [FacultyCourseFile, 'CFF_Section']
+      ],
       include: [
         {
           model: FacultyCourseFile,
@@ -37,7 +42,7 @@ module.exports = {
       .then(cf => cf)
       .then(cfiles => {
         cfiles.forEach(cf => {
-          const { Per_ATID: username, CourseFile: courseFiles } = cf
+          const { Per_ATID: username, FacultyCourseFile: courseFiles } = cf
           const {
             CFF_Course: course,
             CFF_Semes: term,
@@ -61,8 +66,11 @@ module.exports = {
             courseFileList[username] = []
           }
         })
-
-        saveFiles('faculty_course_files', 'faculty', JSON.stringify(courseFileList))
+        saveFiles(
+          'faculty_course_files',
+          'faculty',
+          JSON.stringify(courseFileList)
+        )
       })
       .catch(error => logger.log('error', error))
   },

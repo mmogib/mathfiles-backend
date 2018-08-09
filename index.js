@@ -17,15 +17,15 @@ const { saveAllCourseFiles } = require('./app/files/course_files.js')
 
 logger.log('info', 'Started running ... ' + new Date().toLocaleString())
 
+saveFacultyCourseFiles()
 /*
 Time to execute 
 */
-const h = 15,
-  m = 54,
+const h = 0,
+  m = 5,
   s = 0,
-  increment_minutes = 5
+  increment_minutes = 0
 
-console.log(process.env.NODE_ENV)
 // 1)
 //save list of active faculty in files/faculty/faculty.json
 // every day at 12:05:00 AM

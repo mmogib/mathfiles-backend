@@ -13,11 +13,12 @@ const {
   savePublications,
   saveAllOtherAuthors
 } = require('./app/files/publications')
-const { saveAllCourseFiles } = require('./app/files/course_files.js')
+const { saveAllCourseFiles } = require('./app/files/course_files')
+const { saveSyllabi } = require('./app/files/syllabi')
 
 logger.log('info', 'Started running ... ' + new Date().toLocaleString())
 
-saveFacultyCourseFiles()
+//saveFacultyCourseFiles()
 /*
 Time to execute 
 */
@@ -61,6 +62,8 @@ cron.schedule(s + ' ' + minutes + ' ' + h + ' * * *', function() {
   savePublications()
   logger.log('info', `start saving other authors at ${date}`)
   saveAllOtherAuthors()
+  logger.log('info', `start saving syllabi at ${date}`)
+  saveSyllabi()
 })
 
 // 3)

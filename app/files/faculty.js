@@ -62,7 +62,7 @@ module.exports = {
           }
         })
 
-        saveFiles('course_files', 'faculty', JSON.stringify(courseFileList))
+        saveFiles('faculty_course_files', 'faculty', JSON.stringify(courseFileList))
       })
       .catch(error => logger.log('error', error))
   },

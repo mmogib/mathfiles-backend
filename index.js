@@ -20,10 +20,10 @@ logger.log('info', 'Started running ... ' + new Date().toLocaleString())
 /*
 Time to execute 
 */
-const h = 12,
-  m = 0,
+const h = 15,
+  m = 54,
   s = 0,
-  increment_minutes = 1
+  increment_minutes = 5
 
 console.log(process.env.NODE_ENV)
 // 1)

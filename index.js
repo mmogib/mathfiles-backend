@@ -15,17 +15,16 @@ const {
 } = require('./app/files/publications')
 const { saveAllCourseFiles } = require('./app/files/course_files')
 const { saveSyllabi } = require('./app/files/syllabi')
+const { saveTechnicalReports } = require('./app/files/technical_reports')
 
 logger.log('info', 'Started running ... ' + new Date().toLocaleString())
-
-//saveFacultyCourseFiles()
 /*
 Time to execute 
 */
 const h = 0,
   m = 5,
   s = 0,
-  increment_minutes = 0
+  increment_minutes = 5
 
 // 1)
 //save list of active faculty in files/faculty/faculty.json
@@ -74,4 +73,6 @@ cron.schedule(s + ' ' + minutes + ' ' + h + ' * * *', function() {
   const date = new Date().toLocaleString()
   logger.log('info', `start saving list of all course files at ${date}`)
   saveAllCourseFiles()
+  logger.log('info', `start saving list of all technical reports at ${date}`)
+  saveTechnicalReports()
 })

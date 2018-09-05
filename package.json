@@ -4,22 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ."
+    "test": "jest --config=config.json --detectOpenHandles --watchAll",
+    "start": "node .",
+    "serve": "parcel serve index.js --target node ",
+    "watch": "parcel watch index.js --target node ",
+    "build": "parcel build index.js --target node "
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.0",
     "dotenv": "^6.0.0",
     "node-cron": "^1.2.1",
     "sequelize": "^4.38.0",
     "tedious": "^2.6.3",
-    "winston": "^3.0.0",
-    "xml2js": "^0.4.19"
+    "winston": "^3.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.3"
+    "jest": "^23.5.0",
+    "nodemon": "^1.18.3",
+    "parcel-bundler": "^1.9.7"
   }
 }

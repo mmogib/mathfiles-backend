@@ -1,2 +1,2 @@
 @echo off 
-pm2 start index.js
+pm2 start index.js --name MathFiles

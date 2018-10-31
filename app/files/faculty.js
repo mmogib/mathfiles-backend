@@ -1,6 +1,6 @@
 const { Op } = require('sequelize')
 const fs = require('fs')
-const axios = require('axios')
+//const axios = require('axios')
 const Personal = require('../models/Personal')
 const Schedule = require('../models/Schedule')
 const OfficeHour = require('../models/OfficeHour')
@@ -73,7 +73,7 @@ module.exports = {
         )
       })
       .catch(error => logger.log('error', error))
-  },
+  } /*,
   async saveFacultyPics() {
     _getActiveFaculty()
       .then(cnt => cnt)
@@ -109,7 +109,7 @@ module.exports = {
           })
         })
       })
-  },
+  }*/,
   saveFaculty() {
     let facultyList = []
     _getActiveFaculty()

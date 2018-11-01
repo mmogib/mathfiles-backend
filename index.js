@@ -81,5 +81,3 @@ cron.schedule(s + ' ' + minutes + ' ' + h + ' * * *', function() {
   logger.log('info', `start saving list of all technical reports at ${date}`)
   saveTechnicalReports()
 })
-
-saveProjects()
